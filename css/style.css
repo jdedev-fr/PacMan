@@ -14,14 +14,36 @@
 .mur
 {
     background-image: url('../img/mur.gif');
+    z-index: 1;
 }
 
 .sol
 {
     background-image: url('../img/sol.gif');
+    z-index: 1;
 }
 
 .bonbon
 {
     background-image: url('../img/bonbon.gif');
+    z-index: 1;
+}
+
+#pacman
+{
+ /*   background-image: url('../img/pacman4.gif');*/
+    z-index: 30;
+}
+#pacmanImg
+{
+ /*   background-image: url('../img/pacman4.gif');*/
+    position:absolute;
+    margin-left: -20px;
+
+    z-index: 50;
+}
+
+.fantome
+{
+    z-index: 100;
 }
