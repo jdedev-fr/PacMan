@@ -55,5 +55,13 @@
 
 .fantome
 {
+    z-index: 70;
+}
+.fantomeImg
+{
+ /*   background-image: url('../img/pacman4.gif');*/
+    position:absolute;
+    margin-left: -20px;
+
     z-index: 100;
 }
