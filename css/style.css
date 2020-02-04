@@ -1,0 +1,27 @@
+.content
+{
+    margin:0 auto;
+    width: 80%;
+    text-align: center;
+}
+
+.grille
+{
+    display: grid;
+    justify-content: center;
+}
+
+.mur
+{
+    background-image: url('../img/mur.gif');
+}
+
+.sol
+{
+    background-image: url('../img/sol.gif');
+}
+
+.bonbon
+{
+    background-image: url('../img/bonbon.gif');
+}
