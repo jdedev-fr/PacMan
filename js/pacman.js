@@ -171,7 +171,7 @@ function movePacMan(){
             else {
                 $("#pacmanImg").animate({
                     left :"+=40"
-                },1000);
+                },lvl);
             }
 			if (pacman.x>grille[0].length)
 			{
@@ -184,7 +184,7 @@ function movePacMan(){
             else {
                 $("#pacmanImg").animate({
                     top :"+=40"
-                },1000);
+                },lvl);
             }
 			if (pacman.y>grille.length)
 			{
@@ -197,7 +197,7 @@ function movePacMan(){
             else {
                 $("#pacmanImg").animate({
                     left :"-=40"
-                },1000);
+                },lvl);
             }
 			if (pacman.x<0)
 			{
@@ -210,7 +210,7 @@ function movePacMan(){
             else {
                 $("#pacmanImg").animate({
                     top :"-=40"
-                },1000);
+                },lvl);
             }
 			if (pacman.y<0)
 			{
@@ -299,6 +299,14 @@ function testTouche(event){
 	
 }
 
+/**
+ * Fonction de changement du niveau
+ */
+function changeLvl(){
+	lvl = $("#niveau").val();
+	console.log("level = "+lvl);
+}
+
 function boucleRefresh()
 {
     //On rafraichit la grille
@@ -311,9 +319,16 @@ function boucleRefresh()
     movePacMan();
 
     //On reboucle toutes les 1s
-    setTimeout(boucleRefresh,1000)
+    //Rebouclage
+	if(!tstfin) {
+		setTimeout(boucleRefresh,lvl);
+	}
 }
 
+//On lance les eventListener
 $('body').keypress(testTouche, event);
+$('#btnLvl').click(changeLvl);
+
+//On lance le jeu
 boucleRefresh();
 

@@ -43,6 +43,16 @@
     z-index: 50;
 }
 
+.score
+{
+    width:100%;
+    display: flex;
+    flex:1;
+    justify-content:space-around;
+	height:30px;
+	margin:10 auto;
+}
+
 .fantome
 {
     z-index: 100;
