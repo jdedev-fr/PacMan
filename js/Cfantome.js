@@ -1,15 +1,16 @@
 class fantome {
-    constructor(numF) {
+    constructor(numF, level) {
         this.numF=numF;
         this.x=9;
 	    this.y=9;
-	    this.direction=0;
+        this.direction=0;
+        this.lvl=level;
     }
 
     /**
     *	Déplacement du Fantome
     */
-    move(pac){
+    move(pac,maGrille){
         let newBloc = document.createElement('div');
         newBloc.id='fantome'+this.numF;
         newBloc.classList.add("fantome");
@@ -31,62 +32,62 @@ class fantome {
         switch (this.direction){
             case 0:
                 this.x+=1;
-                if(this.testColl(pac)) {
+                if(this.testColl(pac,maGrille)) {
                     this.x-=1;
                 }
                 else {
                     $("#fantome"+this.numF+"Img").animate({
                         left :"+=40"
-                    },lvl);
+                    },this.lvl);
                 }
-                if (this.x>grille[0].length)
+                if (this.x>maGrille[0].length)
                 {
                     this.x=0;
                 }
                 break;
             case 1:
                 this.y+=1;
-                if(this.testColl(pac)) {
+                if(this.testColl(pac,maGrille)) {
                     this.y-=1;
                 }
                 else {
                     $("#fantome"+this.numF+"Img").animate({
                         top :"+=40"
-                    },lvl);
+                    },this.lvl);
                 }
-                if (this.y>grille.length)
+                if (this.y>maGrille.length)
                 {
                     this.y=0;
                 }
                 break;
             case 2:
                 this.x-=1;
-                if(this.testColl(pac)) {
+                if(this.testColl(pac,maGrille)) {
                     this.x+=1;
                 }
                 else {
                     $("#fantome"+this.numF+"Img").animate({
                         left :"-=40"
-                    },lvl);
+                    },this.lvl);
                 }
                 if (this.x<0)
                 {
-                    this.x=grille[0].length;
+                    this.x=maGrille[0].length;
                 }
                 break;
             case 3:
                 this.y-=1;
-                if(this.testColl(pac)) {
+                if(this.testColl(pac,maGrille)) {
                     this.y+=1;
                 }
                 else {
                     $("#fantome"+this.numF+"Img").animate({
                         top :"-=40"
-                    },lvl);
+                    },this.lvl);
                 }
                 if (this.y<0)
                 {
-                    this.y=grille.length;
+                    this.y=maGrille.length;
                 }
                 break;
         }
@@ -95,8 +96,8 @@ class fantome {
     /**
     *	Fonction de test de collision				  
     */
-    testColl(pac){
-        if(grille[this.y][this.x]==0)
+    testColl(pac,maGrille){
+        if(maGrille[this.y][this.x]==0)
         {
             console.log("il y a un mur en : "+this.y+":"+this.x);
             return true;

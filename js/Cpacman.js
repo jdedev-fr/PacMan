@@ -7,16 +7,17 @@
 /*		haut = direction 3  					   */
 /***************************************************/
 class pacman {
-    constructor() {
+    constructor(level) {
         this.x=5;
 	    this.y=1;
-	    this.direction=0;
+        this.direction=0;
+        this.lvl=level;
     }
 
 	/**
     *  Fonction de déplacement du PacMan
     */
-    move(tabF){
+    move(tabF,maGrille,bonbon){
         let newBloc = document.createElement('div');
         newBloc.id='pacman';
         newBloc.style.gridColumn=this.x+1;
@@ -32,56 +33,56 @@ class pacman {
         switch (this.direction){
             case 0:
                 this.x+=1;
-                if(this.testColl(tabF)) {
+                if(this.testColl(tabF,maGrille,bonbon)) {
                     this.x-=1;
                 }
                 else {
                     $("#pacmanImg").animate({
                         left :"+=40"
-                    },lvl);
+                    },this.lvl);
                 }
-                if (this.x>grille[0].length)
+                if (this.x>maGrille[0].length)
                 {
                     this.x=0;
                 }
                 break;
             case 1:
                 this.y+=1;
-                if(this.testColl(tabF)) {this.y-=1;}
+                if(this.testColl(tabF,maGrille,bonbon)) {this.y-=1;}
                 else {
                     $("#pacmanImg").animate({
                         top :"+=40"
-                    },lvl);
+                    },this.lvl);
                 }
-                if (this.y>grille.length)
+                if (this.y>maGrille.length)
                 {
                     this.y=0;
                 }
                 break;
             case 2:
                 this.x-=1;
-                if(this.testColl(tabF)) {this.x+=1;}
+                if(this.testColl(tabF,maGrille,bonbon)) {this.x+=1;}
                 else {
                     $("#pacmanImg").animate({
                         left :"-=40"
-                    },lvl);
+                    },this.lvl);
                 }
                 if (this.x<0)
                 {
-                    this.x=grille[0].length;
+                    this.x=maGrille[0].length;
                 }
                 break;
             case 3:
                 this.y-=1;
-                if(this.testColl(tabF)) {this.y+=1;}
+                if(this.testColl(tabF,maGrille,bonbon)) {this.y+=1;}
                 else {
                     $("#pacmanImg").animate({
                         top :"-=40"
-                    },lvl);
+                    },this.lvl);
                 }
                 if (this.y<0)
                 {
-                    this.y=grille.length;
+                    this.y=maGrille.length;
                 }
                 break;
         }
@@ -90,18 +91,18 @@ class pacman {
     /**
     *	Fonction de test de collision				  
     */
-    testColl(tabF){
-        if(grille[this.y][this.x]==0)
+    testColl(tabF,maGrille,bonbon){
+        if(maGrille[this.y][this.x]==0)
         {
             console.log("il y a un mur en : "+this.y+":"+this.x);
             return true;
         }
-        if(grille[this.y][this.x]==2)
+        if(maGrille[this.y][this.x]==2)
         {
             score+=(10*tabF.length);
-            nbBonbon--;
-            grille[this.y][this.x]=1;
-            if(nbBonbon<=0)
+            bonbon--;
+            maGrille[this.y][this.x]=1;
+            if(bonbon<=0)
             {
                 alert("Vous avez gagné !");
                 tstfin=true;
@@ -120,6 +121,41 @@ class pacman {
         }
 
         return false;
+    }
+
+    /**
+    *			Fonction qui récupère la touche        
+    */
+    testTouche(event){
+        switch (event.key) {
+            case "ArrowDown":
+            case "D":
+            case "d":
+                this.direction=1;
+                $("#touche").html("Touche : V");
+                break;
+            case "ArrowUp":
+            case "E":
+            case "e":
+                this.direction=3;
+                $("#touche").html("Touche : ^");
+                break;
+            case "ArrowLeft":
+            case "S":
+            case "s":
+                this.direction=2;
+                $("#touche").html("Touche : <");
+                break;
+            case "ArrowRight":
+            case "F":
+            case "f":
+                this.direction=0;
+                $("#touche").html("Touche : >");
+                break;
+            default:
+                $("#touche").html("Touche non gere");
+                break;
+        }       
     }
   
 }
