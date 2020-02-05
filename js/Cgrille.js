@@ -8,7 +8,11 @@
 class grilleDef {
  
     constructor(){
-        this.grilleDef = [
+        
+    }
+
+    getGrilleDef(){
+        let grilleDef = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,0],
             [0,2,0,0,2,0,0,0,2,0,2,0,0,0,2,0,0,2,0],
@@ -32,13 +36,12 @@ class grilleDef {
             [0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         ];
-        return this.grilleDef;
+        return grilleDef;
     }
-
 /**
  *  Fonction de gestion de la grille PacMan
  */
-    initGrille(maGrille)
+    initGrille(maGrille,scoreEnCours)
     {
         //Réinit de la grille
         $('.grille').html(' ');
@@ -75,75 +78,41 @@ class grilleDef {
             }
         }
         //Réaffichage du score
-        $("#score").html(score);
+        $("#score").html(scoreEnCours);
     }
 
     
-    boucleRefresh(maGrille,level,bonbon)
+    boucleRefresh(maGrille,level,bonbon,mypac,tabF)
     {
+
+        var that = this;
         //On rafraichit la grille
-        this.initGrille(maGrille);
+        this.initGrille(maGrille,mypac.score);
 
         //On controle si PacMan est sur un Fantome
-        myPac.testColl(tabFant);
+        mypac.testColl(tabF,maGrille,bonbon);
 
         //On fait bouger PacMan
-        myPac.move(tabFant,maGrille,bonbon);
+        mypac.move(tabF,maGrille,bonbon);
 
         //On fait bouger les fantomes
-        for(let myFant in tabFant)
+        for(let myFant in tabF)
         {
-            tabFant[myFant].move(myPac,maGrille);
+            tabF[myFant].move(mypac,maGrille);
         }
 
         //On reboucle toutes les 1s
         //Rebouclage
         if(!tstfin) {
-            setTimeout(function(maGrille,level,bonbon){
-                this.boucleRefresh(maGrille,level,bonbon);
-            },level);
+            setTimeout(function(maGrille,level,bonbon,mypac,tabF){
+                that.boucleRefresh(maGrille,level,bonbon,mypac,tabF);
+            },level,maGrille,level,bonbon,mypac,tabF);
         }
     }
 
-    /**
-    * Fonction de changement du niveau et de lancement du jeu
-    */
-    changeLvl(level){
-        if(!tstfin){
-            tstfin=true;
-            setTimeout(function(){
-                this.changeLvl(level)},level);
-        }
-        else {
-            level = $("#niveau").val();
-            nbFant = $("#inpNbFant").val();
-            score=0;
-            nbBonbon=0;
-            tstfin =false;
-            grille = new grilleDef();
+    
 
-            // Mise à jour du nombre de bonbon
-            for(let i in grille){
-                for(let j in grille[i]){
-                    if(grille[i][j]==2){
-                        nbBonbon++;
-                    }
-                
-                }  
-            }
-
-            myPac = new pacman(level);
-            tabFant = new Array();
-            //Création des Fantomes
-            for(let i=0;i<nbFant;i++){
-                var mf1 = new fantome(tabFant.length+1,level);
-                tabFant.push(mf1);
-            }
-            
-            //On lance le jeu
-            boucleRefresh(grille,level,nbBonbon);
-        }
-    }
+   
 
 }
 

@@ -27,7 +27,7 @@ class fantome {
 
         this.direction = Math.floor(Math.random() * 4);
         if(this.direction>=4){this.direction=0;}
-        console.log("direction fantome = "+this.direction);
+        logMe("direction fantome = "+this.direction);
     
         switch (this.direction){
             case 0:
@@ -99,7 +99,7 @@ class fantome {
     testColl(pac,maGrille){
         if(maGrille[this.y][this.x]==0)
         {
-            console.log("il y a un mur en : "+this.y+":"+this.x);
+            logMe("il y a un mur en : "+this.y+":"+this.x);
             return true;
         }
        

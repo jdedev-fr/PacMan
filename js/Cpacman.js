@@ -12,6 +12,7 @@ class pacman {
 	    this.y=1;
         this.direction=0;
         this.lvl=level;
+        this.score=0;
     }
 
 	/**
@@ -94,12 +95,12 @@ class pacman {
     testColl(tabF,maGrille,bonbon){
         if(maGrille[this.y][this.x]==0)
         {
-            console.log("il y a un mur en : "+this.y+":"+this.x);
+            logMe("il y a un mur en : "+this.y+":"+this.x);
             return true;
         }
         if(maGrille[this.y][this.x]==2)
         {
-            score+=(10*tabF.length);
+            this.score+=(10*tabF.length);
             bonbon--;
             maGrille[this.y][this.x]=1;
             if(bonbon<=0)
@@ -123,39 +124,6 @@ class pacman {
         return false;
     }
 
-    /**
-    *			Fonction qui récupère la touche        
-    */
-    testTouche(event){
-        switch (event.key) {
-            case "ArrowDown":
-            case "D":
-            case "d":
-                this.direction=1;
-                $("#touche").html("Touche : V");
-                break;
-            case "ArrowUp":
-            case "E":
-            case "e":
-                this.direction=3;
-                $("#touche").html("Touche : ^");
-                break;
-            case "ArrowLeft":
-            case "S":
-            case "s":
-                this.direction=2;
-                $("#touche").html("Touche : <");
-                break;
-            case "ArrowRight":
-            case "F":
-            case "f":
-                this.direction=0;
-                $("#touche").html("Touche : >");
-                break;
-            default:
-                $("#touche").html("Touche non gere");
-                break;
-        }       
-    }
+    
   
 }
